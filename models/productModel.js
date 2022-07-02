@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
         },
         description: {
-            type: DataTypes.Text,
+            type: DataTypes.TEXT,
         },
         published: {
             type: DataTypes.BOOLEAN,

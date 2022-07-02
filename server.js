@@ -12,7 +12,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(customMiddleware);
+
+//routes
+const productRoutes = require('./routes/productRouter');
+app.use('/api/products', productRoutes);
 
 //api
 app.get('/', (req, res) => {
@@ -20,30 +23,33 @@ app.get('/', (req, res) => {
     res.json({ message: 'Hello check' })
 });
 
-app.get('/about', auth, (req, res, next) => {
-    console.log("About Page");
-    res.json({ message: 'About Page ok!' });
-    next()
-});
+// app.get('/about', auth, (req, res, next) => {
+//     console.log("About Page");
+//     res.json({ message: 'About Page ok!' });
+//     next()
+// });
 
 
 
-//custom middleware
-function customMiddleware(req, res, next) {
-    console.log('Custom Middleware is running');
-    // console.log('Before');
-    next();
-    // console.log('After');
-}
+// //custom middleware
+// app.use(customMiddleware);
 
-function auth(req, res, next) {
-    if (req.query.admin === 'true') {
-        console.log('admin...');
-        next();
-        return;
-    }
-    res.send('Auth is require...');
-}
+// //creating custom middleware
+// function customMiddleware(req, res, next) {
+//     console.log('Custom Middleware is running');
+//     // console.log('Before');
+//     next();
+//     // console.log('After');
+// }
+
+// function auth(req, res, next) {
+//     if (req.query.admin === 'true') {
+//         console.log('admin...');
+//         next();
+//         return;
+//     }
+//     res.send('Auth is require...');
+// }
 
 //PORT
 const PORT = process.env.PORT || 8080;
