@@ -31,15 +31,18 @@ app.get('/about', auth, (req, res, next) => {
 //custom middleware
 function customMiddleware(req, res, next) {
     console.log('Custom Middleware is running');
+    // console.log('Before');
     next();
+    // console.log('After');
 }
 
 function auth(req, res, next) {
     if (req.query.admin === 'true') {
+        console.log('admin...');
         next();
-    } else {
-        res.send('Auth is require...')
+        return;
     }
+    res.send('Auth is require...');
 }
 
 //PORT
