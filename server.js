@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const { query } = require('express');
 
 const app = express();
 
@@ -11,11 +12,35 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(customMiddleware);
 
 //api
 app.get('/', (req, res) => {
+    console.log("Home Page");
     res.json({ message: 'Hello check' })
 });
+
+app.get('/about', auth, (req, res, next) => {
+    console.log("About Page");
+    res.json({ message: 'About Page ok!' });
+    next()
+});
+
+
+
+//custom middleware
+function customMiddleware(req, res, next) {
+    console.log('Custom Middleware is running');
+    next();
+}
+
+function auth(req, res, next) {
+    if (req.query.admin === 'true') {
+        next();
+    } else {
+        res.send('Auth is require...')
+    }
+}
 
 //PORT
 const PORT = process.env.PORT || 8080;
