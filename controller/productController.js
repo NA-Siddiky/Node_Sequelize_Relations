@@ -66,7 +66,7 @@ const deleteProduct = async (req, res) => {
 }
 
 //Published Products
-const publishedProducts = async (req, res) => {
+const getPublishedProducts = async (req, res) => {
     const products = await Products.findAll({
         where: {
             published: true
@@ -82,6 +82,6 @@ module.exports = {
     getSingleProduct,
     updateProduct,
     deleteProduct,
-    publishedProducts
+    getPublishedProducts,
 
 }
